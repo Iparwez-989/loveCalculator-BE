@@ -8,7 +8,7 @@ const PORT = 5000;
 
 // Middleware
 app.use(cors({
-  origin:["https://love-calculator-xi-nine.vercel.app/","https://localhost:3000"]
+  origin:["https://love-calculator-xi-nine.vercel.app/","https://localhost:3000","*"]
 }));
 app.use(bodyParser.json());
 

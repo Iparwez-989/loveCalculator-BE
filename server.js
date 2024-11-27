@@ -7,9 +7,30 @@ const app = express();
 const PORT = 5000;
 
 // Middleware
+const cors = require("cors");
+
 app.use(cors({
-  origin:["https://love-calculator-xi-nine.vercel.app/","https://localhost:3000"]
+  origin: (origin, callback) => {
+    const allowedOrigins = [
+      "https://love-calculator-xi-nine.vercel.app",
+      "http://localhost:3000"
+    ];
+
+    // Allow requests with no origin (e.g., mobile apps, Postman, or similar)
+    if (!origin) {
+      return callback(null, true);
+    }
+
+    // Check if the incoming origin is allowed
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true, // Allow cookies or auth headers if needed
 }));
+
 app.use(bodyParser.json());
 
 // MongoDB connection
